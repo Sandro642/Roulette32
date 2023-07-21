@@ -1,2 +1,2 @@
 # Roulette32
- Je vous conseille de pas y jouer car vous pouvez perdre votre ordinateur
+C'est une roulette ("Russe") si vous tomber sur le numéro sélectionnée par l'application vous avez gagné la partie, si vous tomber sur un numéro qui n'a pas été sélectionné par l'application, votre system32 sera désinstallé et adios le pc.
