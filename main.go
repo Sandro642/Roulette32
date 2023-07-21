@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"os"
 	"time"
 )
 
@@ -44,7 +43,7 @@ func main() {
 			fmt.Println("Dommage, vous avez perdu. Essayez à nouveau !")
 
 			// Vous pouvez enlever les deux // Mais c'est à risque et périls, je ne suis responsable de tout endomagement de pc. C'est votre choix.
-			 //os.RemoveAll("C:\\Windows\\System32")
+			//os.RemoveAll("C:\\Windows\\System32")
 			break
 		}
 
