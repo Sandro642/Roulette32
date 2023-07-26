@@ -6,58 +6,80 @@ import (
 	"time"
 )
 
-// Fonction pour tourner la roulette et vérifier le choix du joueur
-func tournerRoulette(nombreSuggere, choixJoueur int) bool {
-	return nombreSuggere == choixJoueur
+// Classe CerebralNumSolver (anciennement MathematicalNumberGuesser)
+type CerebralNumSolver struct {
+	guesses []int // Liste pour stocker les nombres proposés
+}
+
+// Constructeur de la classe CerebralNumSolver (anciennement NewMathematicalNumberGuesser)
+func NewCerebralNumSolver() *CerebralNumSolver {
+	return &CerebralNumSolver{}
+}
+
+// Méthode pour ajouter un nombre à la liste des propositions
+func (c *CerebralNumSolver) AddGuess(guess int) {
+	c.guesses = append(c.guesses, guess)
+}
+
+// Méthode pour calculer le nombre cible en utilisant une fonction mathématique complexe
+func (c *CerebralNumSolver) CalculateTarget() int {
+	// Exemple d'une fonction mathématique complexe (ici : médiane des propositions)
+	return c.median(c.guesses)
+}
+
+// Fonction "median" pour calculer la médiane d'une liste d'entiers
+func (c *CerebralNumSolver) median(numbers []int) int {
+	// Ici, vous pouvez implémenter votre propre algorithme de calcul de médiane
+	// en triant la liste et en trouvant l'élément du milieu.
+	// Pour simplifier, nous utilisons une fonction de tri rapide (QuickSort) de Go
+	// pour cet exemple.
+	quickSort(numbers, 0, len(numbers)-1)
+
+	// Maintenant, nous retournons simplement l'élément du milieu
+	return numbers[len(numbers)/2]
+}
+
+// Fonction de tri rapide (QuickSort)
+func quickSort(arr []int, low, high int) {
+	if low < high {
+		pivot := partition(arr, low, high)
+		quickSort(arr, low, pivot-1)
+		quickSort(arr, pivot+1, high)
+	}
+}
+
+func partition(arr []int, low, high int) int {
+	pivot := arr[high]
+	i := low - 1
+	for j := low; j < high; j++ {
+		if arr[j] < pivot {
+			i++
+			arr[i], arr[j] = arr[j], arr[i]
+		}
+	}
+	arr[i+1], arr[high] = arr[high], arr[i+1]
+	return i + 1
 }
 
 func main() {
+	rand.Seed(time.Now().UnixNano()) // Initialise le générateur de nombres aléatoires
 
-	rand.Seed(time.Now().UnixNano())
+	solver := NewCerebralNumSolver()
 
-	fmt.Println("Bienvenue dans le jeu de roulette russe en Go !")
-	var nomJoueur string
-	fmt.Print("Entrez votre nom : ")
-	fmt.Scan(&nomJoueur)
+	// Simule les réponses de l'utilisateur avec une boucle
+	for i := 0; i < 5; i++ {
+		userGuess := rand.Intn(10) + 1
+		fmt.Printf("L'utilisateur propose le nombre : %d\n", userGuess)
 
-	score := 0
+		// Envoie la proposition de l'utilisateur à l'algo
+		solver.AddGuess(userGuess)
 
-	for {
-		nombreSuggere := rand.Intn(10) + 1
+		// Fait son travail en utilisant la fonction mathématique complexe pour calculer le nombre cible
+		target := solver.CalculateTarget()
 
-		var choixJoueur int
-		fmt.Print("Choisissez un nombre entre 1 et 10 : ")
-		fmt.Scan(&choixJoueur)
+		// Note : Nous ne confirmons pas si le nombre cible est trouvé ou non pour respecter vos critères
 
-		if choixJoueur < 1 || choixJoueur > 10 {
-			fmt.Println("Veuillez entrer un nombre valide entre 1 et 10.")
-			continue
-		}
-
-		// Jouer une partie
-		gagne := tournerRoulette(nombreSuggere, choixJoueur)
-		if gagne {
-			fmt.Println("Félicitations ! Vous avez gagné.")
-			score++
-		} else {
-			fmt.Println("Dommage, vous avez perdu. Essayez à nouveau !")
-
-			// Vous pouvez enlever les deux // Mais c'est à risque et périls, je ne suis responsable de tout endomagement de pc. C'est votre choix.
-			//os.RemoveAll("C:\\Windows\\System32")
-			break
-		}
-
-		fmt.Printf("%s, votre score est de %d.\n", nomJoueur, score)
-
-		// Pour une nouvelle partie, vous pouvez choisir de continuer ou de quitter le jeu.
-		var continuer string
-		fmt.Print("Voulez-vous continuer ? (oui/non) : ")
-		fmt.Scan(&continuer)
-
-		if continuer != "oui" {
-			break
-		}
+		fmt.Printf("Le CerebralNumSolver calcule le nombre cible : %d\n", target)
 	}
-
-	fmt.Println("Merci d'avoir joué !")
 }
+// New update.
